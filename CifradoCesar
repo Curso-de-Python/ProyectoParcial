@@ -1,0 +1,36 @@
+def charMasFrecuente():
+  maxRepeticiones = 0
+  letrasContadas = []
+  for i in cifrado:
+    if i != " " and cifrado.count(i) > maxRepeticiones and i not in letrasContadas:
+      letrasContadas.append(i)       # Evita contar letras ya contadas
+      maxRepeticiones = cifrado.count(i)
+      charFrecuente = i
+  return charFrecuente
+
+def hallarLlave():
+  llave = (ord(charMasFrecuente().upper()) - ord("E"))    # La llave es el desplazamiento desde el texto original
+  return llave
+
+def desencriptar():
+  descifrado = ''
+  for char in cifrado:
+    if char.isalpha():
+      codigo = ord(char) + (26-llave)
+      if char.isupper():
+        primerCodigo = ord("A")
+      else:
+        primerCodigo = ord("a")
+      codigo -= primerCodigo  # Calcula la diferencia con la primera del abecedario
+      codigo %= 26            # Si pasa por todo el alfabeto, se omite una vuelta
+      descifrado += chr(primerCodigo + codigo)
+    else:
+      descifrado += char
+  return descifrado
+
+# PROGRAMA PRINCIPAL
+cifrado = input("Ingresa tu mensaje: ")
+llave = hallarLlave ()     
+descifrado = desencriptar()
+print("\nDesencriptado: ", descifrado)
+print("\nLa llave de cifrado es", llave)
