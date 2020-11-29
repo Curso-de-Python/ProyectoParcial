@@ -1,0 +1,61 @@
+from random import randrange
+
+def mostrarTablero():
+  for i in range(3):
+    print("+-------+-------+-------+")
+    print("|       |       |       |")
+    print("|   " + tablero[i][0]+"   |   " + tablero[i][1]+"   |   " + tablero[i][2]+"   |")
+    print("|       |       |       |")
+  print("+-------+-------+-------+")
+ 
+def ingresarJugada():
+  while True:
+    jugada = input("Ingresa tu movimiento: ")
+    for fila in tablero: 
+      if jugada in fila:
+        fila[fila.index(jugada)] = "O"    # Busca el número seleccionado
+        return
+    print("Debes ingresar uno de los números en pantalla")
+            
+def victoria(sim):
+  for i in range(3):
+    if (tablero[i][0]==sim and tablero[i][1]==sim and tablero[i][2]==sim) or \
+      (tablero[0][i]==sim and tablero[1][i]==sim and tablero[2][i]==sim):     # Filas y columnas
+      return True
+  if (tablero[0][0]==sim and tablero[1][1]==sim and tablero[2][2]==sim) or \
+    (tablero[0][2]==sim and tablero[1][1]==sim and tablero[2][0]==sim):       # Diagonales
+    return True
+  return False
+    
+def jugadaDelPC():
+  while True:     # Se repite hasta que encuentra un lugar libre
+    f = randrange(3)
+    c = randrange(3)
+    if tablero[f][c] != 'O' and tablero[f][c] != 'X':
+      tablero[f][c] = 'X'
+      return
+
+# PROGRAMA PRINCIPAL
+print("¡A JUGAR!")
+tablero =[['1','2','3'],['4','X','6'],['7','8','9']]
+mostrarTablero()
+movimientos = 0
+
+while not victoria('O') and not victoria('X'):
+  ingresarJugada()
+  mostrarTablero()
+  if victoria('O'):
+    print("¡Has ganado!")
+    break
+  movimientos += 1
+
+  print("Ahora el de la computadora:")
+  jugadaDelPC()  
+  mostrarTablero()
+  if victoria('X'):
+    print("Has perdido")
+    break
+  
+  if movimientos == 4:    # En un ciclo juega el usuario y la PC
+    print("¡Es un empate!")
+    break
