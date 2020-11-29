@@ -1,0 +1,54 @@
+from random import sample
+
+# Patrón para una solución válida básica (uno de muchos)
+def patron(f, c):
+	p = (3 * (f % 3) + f // 3 + c) % 9
+	print(p, end=" ")
+	return pf patron(f, c):
+	p = (3 * (f % 3) + f // 3 + c) % 9
+	print(p, end=" ")
+	return p
+
+def aleatorios(s):
+	return sample(s, len(s))  # Probar return s
+
+# Genera índices aleatorios para las filas y columnas
+filas = []
+cols = []
+
+for a in aleatorios(range(3)):
+	for b in aleatorios(range(3)):
+		filas.append(3 * a + b)
+
+for a in aleatorios(range(3)):
+	for b in aleatorios(range(3)):
+		cols.append(3 * a + b)
+
+print("filas:", filas)
+print("cols:", cols)
+
+# Genera números aleatorios del 1 al 9 para el tablero final
+numeros = aleatorios(range(1, 10))
+print("numeros:", numeros)
+
+# Genera el tablero usando el patrón base
+print("\nPatrón:")
+tablero = [[numeros[patron(fila, col)] for col in cols] for fila in filas]
+
+# Sudoku como matriz
+print("\n\nSudoku:")
+for linea in tablero:
+	print(linea)
+
+# Sudoku como lista de cadenas
+print()
+tableroStr = []
+
+for linea in tablero:
+	lineaStr = ""
+	for elem in linea:
+		lineaStr += str(elem)
+	tableroStr.append(lineaStr)
+
+for i in tableroStr:
+	print(i)
